@@ -3,9 +3,11 @@ RSS-лента новостей с автоматическим обновлен
 
 ## Технологии
 - Браузерная инфраструктура (webpack)
+- MVC
 - Jquery
+- i18next
 - Bootstrap
 - AJAX используя Axios
 - События, манипуляции с DOM
 - Валидация, DOMParser
-- Деплой (https://surge.sh)
+- Деплой (https://vercel.com)
