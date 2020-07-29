@@ -1,3 +1,4 @@
+![Node CI](https://github.com/Shramkoweb/frontend-project-lvl3/workflows/Node%20CI/badge.svg)
 # Описание проекта
 RSS-лента новостей с автоматическим обновлением.
 
