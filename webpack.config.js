@@ -7,8 +7,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
+    chunkFilename: '[name].[contenthash].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
   },
   module: {
     rules: [
@@ -16,9 +17,17 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
     ],
   },
   devServer: {
+    contentBase: './dist',
     port: 1337,
     open: true,
   },
@@ -33,4 +42,9 @@ module.exports = {
       ],
     }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };
