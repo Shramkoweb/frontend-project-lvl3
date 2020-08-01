@@ -1,4 +1,9 @@
-import { createElement, redFixture, render, renderPositions } from '../utils';
+import {
+  createElement,
+  redFixture,
+  render,
+  renderPositions,
+} from '../utils';
 
 describe('createElement', () => {
   let html;
