@@ -4,14 +4,14 @@
   "description": "RSS reader in browser",
   "private": true,
   "scripts": {
-    "test": "npx -n --experimental-vm-modules jest",
-    "build": "webpack"
+    "test": "jest --colors",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shramkoweb/frontend-project-lvl3.git"
   },
-  "type": "module",
   "keywords": [
     "RSS",
     "JS",
@@ -26,11 +26,16 @@
   },
   "homepage": "https://github.com/Shramkoweb/frontend-project-lvl3#readme",
   "devDependencies": {
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.3",
     "css-loader": "^4.1.0",
     "eslint": "^7.5.0",
     "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^23.19.0",
     "html-webpack-plugin": "^4.3.0",

@@ -2,6 +2,9 @@
 
 plugins:
   - jest
+  - babel
+
+parser: babel-eslint
 
 env:
   node: true

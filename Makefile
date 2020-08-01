@@ -7,8 +7,11 @@ lint:
 test:
 	npm test
 
-develop:
-	npx webpack-dev-server
+start:
+	npm start
+
+build:
+	npm run build
 
 test-coverage:
-	npm test -- --coverage --coverageProvider=v8
+	npm test --coverage --coverageProvider=v8
