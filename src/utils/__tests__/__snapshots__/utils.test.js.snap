@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createElement should render correct markup 1`] = `
+<div
+  class="container"
+>
+  
+  
+  <h1
+    class="title"
+  >
+    Test title
+  </h1>
+  
+  
+  <p
+    class="description"
+  >
+    Test description
+  </p>
+  
+
+</div>
+`;
+
+exports[`createElement should throw error without template 1`] = `"Unexpected call createElement without template"`;
+
+exports[`render should render AFTERBEGIN  1`] = `
+<div
+  class="container"
+>
+  <p>
+    Render test element
+  </p>
+  
+  
+  <h1
+    class="title"
+  >
+    Test title
+  </h1>
+  
+  
+  <p
+    class="description"
+  >
+    Test description
+  </p>
+  
+
+</div>
+`;
+
+exports[`render should render BEFOREEND  1`] = `
+<div
+  class="container"
+>
+  
+  
+  <h1
+    class="title"
+  >
+    Test title
+  </h1>
+  
+  
+  <p
+    class="description"
+  >
+    Test description
+  </p>
+  
+
+  <p>
+    Render test element
+  </p>
+</div>
+`;
+
+exports[`render should throw error without place 1`] = `"Uncorrected render place undefined"`;
