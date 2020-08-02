@@ -1,15 +1,20 @@
+import path from 'path';
+import fs from 'fs';
+
 import {
   createElement,
-  redFixture,
   render,
   renderPositions,
 } from '../utils';
+
+const getFixturePath = (filename) => path.join(process.cwd(), '/src', '/__fixtures__', filename);
+const readFixtureContent = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8').trim();
 
 describe('createElement', () => {
   let html;
 
   beforeAll(() => {
-    html = redFixture('test.html');
+    html = readFixtureContent('test.html');
   });
 
   it('should return Node', () => {
@@ -39,7 +44,7 @@ describe('render', () => {
   let html;
 
   beforeAll(() => {
-    html = redFixture('test.html');
+    html = readFixtureContent('test.html');
     testElement = document.createElement('p');
     testElement.textContent = 'Render test element';
   });

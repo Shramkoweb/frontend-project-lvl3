@@ -1,13 +1,7 @@
-import path from 'path';
-import fs from 'fs';
-
 export const renderPositions = {
   AFTERBEGIN: 'afterbegin',
   BEFOREEND: 'beforeend',
 };
-
-export const getFixturePath = (filename) => path.join(process.cwd(), '/src', '/__fixtures__', filename);
-export const redFixture = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8').trim();
 
 export const createElement = (template) => {
   if (!template) {
