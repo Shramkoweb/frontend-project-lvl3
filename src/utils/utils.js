@@ -31,7 +31,7 @@ export const render = (container, element, place) => {
 
 export const removeTrailingSlashes = (url) => url.replace(/\/+$/, '');
 
-export const validate = (url, addedURLs) => yup
+export const validate = (url, addedURLs = []) => yup
   .string()
   .url('invalidUrl')
   .required('emptyString')
