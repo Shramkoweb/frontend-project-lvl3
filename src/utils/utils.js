@@ -1,3 +1,5 @@
+import * as yup from 'yup';
+
 export const renderPositions = {
   AFTERBEGIN: 'afterbegin',
   BEFOREEND: 'beforeend',
@@ -26,3 +28,9 @@ export const render = (container, element, place) => {
       throw new Error(`Uncorrected render place ${place}`);
   }
 };
+
+export const validate = (url) => yup
+  .string()
+  .required('emptyString')
+  .url('invalidUrl')
+  .validate(url);
