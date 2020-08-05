@@ -13,7 +13,7 @@ export const createElement = (template) => {
   const element = document.createElement('div');
   element.innerHTML = template;
 
-  return element.firstChild;
+  return element.firstElementChild;
 };
 
 export const render = (container, element, place) => {
