@@ -1,32 +1,23 @@
-import onChange from 'on-change';
-
 import {
   removeTrailingSlashes,
   updateValidationState,
 } from './utils/utils';
-import formRender from './renders/formRender';
+import watchers from './watchers';
 
 export default () => {
   const state = {
     form: {
       process: 'initial',
       url: '',
-      isUrlValid: 'empty',
+      isUrlValid: null,
       errors: [],
     },
-    feeds: {
-      items: [],
-    },
-    posts: {
-      items: [],
-    },
+    feeds: [],
+    posts: [],
     language: 'eng',
   };
 
-  const watchedForm = onChange(state.form, formRender);
-  const watchedFeeds = onChange(state.feeds, (...opts) => {
-    console.log(opts);
-  });
+  const watchedState = watchers(state);
 
   const input = document.querySelector('.reader-input');
   const form = document.querySelector('.reader-form');
@@ -37,12 +28,12 @@ export default () => {
 
     updateValidationState(withoutTralingSlashes, state)
       .then((validUrl) => {
-        watchedForm.isUrlValid = 'valid';
-        watchedForm.url = validUrl;
+        watchedState.form.isUrlValid = 'valid';
+        watchedState.form.url = validUrl;
       })
       .catch((error) => {
-        watchedForm.errors = [...watchedForm.errors, error.message];
-        watchedForm.isUrlValid = 'invalid';
+        watchedState.form.isUrlValid = 'invalid';
+        watchedState.form.errors = error.errors;
       });
   };
 
@@ -50,9 +41,9 @@ export default () => {
     evt.preventDefault();
     const { value } = evt.target;
 
-    watchedForm.process = 'adding';
-    const currentURL = watchedForm.url;
-    watchedFeeds.items = [...watchedFeeds.items, { url: currentURL }];
+    watchedState.form.process = 'adding';
+    const currentURL = watchedState.form.url;
+    watchedState.feeds = [...watchedState.feeds, { url: currentURL }];
 
   };
 

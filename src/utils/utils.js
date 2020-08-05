@@ -39,7 +39,7 @@ export const validate = (url, addedURLs) => yup
   .validate(url);
 
 export const updateValidationState = (value, state) => {
-  const addedURLs = state.feeds.items.map((feed) => feed.url);
+  const addedURLs = state.feeds.map((feed) => feed.url);
 
   return validate(value, addedURLs);
 };
