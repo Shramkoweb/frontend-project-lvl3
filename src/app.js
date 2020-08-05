@@ -58,7 +58,7 @@ export default () => {
         throw err;
       });
 
-    console.log(state)
+    console.log(state);
   };
 
   input.addEventListener('input', handleInputBlur);

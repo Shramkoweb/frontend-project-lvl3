@@ -7,8 +7,7 @@ export default (state) => {
   const button = form.querySelector('button');
   const errorMessage = document.querySelector('.invalid-feedback');
 
-  const watchedState = onChange(state, (path, value, previousValue) => {
-    console.log({ path, value, previousValue })
+  const watchedState = onChange(state, (path, value) => {
     if (path === 'form.isUrlValid') {
       if (value === 'valid') {
         input.classList.remove('is-invalid');
@@ -34,6 +33,8 @@ export default (state) => {
         .join('. ');
       errorMessage.textContent = errorMessages;
     }
+
+    return null;
   });
 
   return watchedState;
