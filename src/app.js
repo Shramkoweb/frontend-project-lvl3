@@ -1,15 +1,19 @@
+import axios from 'axios';
+
 import {
+  parse,
   removeTrailingSlashes,
   updateValidationState,
 } from './utils/utils';
 import watchers from './watchers';
+import { corsApiUrl } from './constants';
 
 export default () => {
   const state = {
     form: {
       process: 'initial',
       url: '',
-      isUrlValid: null,
+      isUrlValid: false,
       errors: [],
     },
     feeds: [],
@@ -39,12 +43,22 @@ export default () => {
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
-    const { value } = evt.target;
 
-    watchedState.form.process = 'adding';
     const currentURL = watchedState.form.url;
-    watchedState.feeds = [...watchedState.feeds, { url: currentURL }];
 
+    const url = `${corsApiUrl}${currentURL}`;
+
+    axios.get(url)
+      .then((response) => {
+        state.feeds = [...state.feeds, { url: currentURL }];
+        const { feed, posts } = parse(response.data);
+        console.log({ feed, posts });
+      })
+      .catch((err) => {
+        throw err;
+      });
+
+    console.log(state)
   };
 
   input.addEventListener('input', handleInputBlur);
