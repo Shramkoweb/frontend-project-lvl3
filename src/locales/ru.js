@@ -8,6 +8,7 @@ export default {
     errorMessages: {
       invalidUrl: 'Введенный URL некорректен',
       hasUrlYet: 'Данный URL уже добавлен',
+      emptyString: 'Нужно ввести корректный URL',
     },
   },
 };

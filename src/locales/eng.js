@@ -5,5 +5,10 @@ export default {
     feedButton: 'Add',
     inputPlaceholder: 'RSS link',
     exampleText: 'Example',
+    errorMessages: {
+      invalidUrl: 'The entered URL is incorrect',
+      hasUrlYet: 'This URL has already been added',
+      emptyString: 'You must enter a valid URL',
+    },
   },
 };
