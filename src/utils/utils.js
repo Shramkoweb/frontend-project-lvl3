@@ -29,8 +29,17 @@ export const render = (container, element, place) => {
   }
 };
 
-export const validate = (url) => yup
+export const removeTrailingSlashes = (url) => url.replace(/\/+$/, '');
+
+export const validate = (url, addedURLs) => yup
   .string()
-  .required('emptyString')
   .url('invalidUrl')
+  .required('emptyString')
+  .notOneOf(addedURLs, 'hasUrlYet')
   .validate(url);
+
+export const updateValidationState = (value, state) => {
+  const addedURLs = state.feeds.items.map((feed) => feed.url);
+
+  return validate(value, addedURLs);
+};

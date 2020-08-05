@@ -5,5 +5,9 @@ export default {
     feedButton: 'Добавить',
     inputPlaceholder: 'RSS ссылка',
     exampleText: 'Пример',
+    errorMessages: {
+      invalidUrl: 'Введенный URL некорректен',
+      hasUrlYet: 'Данный URL уже добавлен',
+    },
   },
 };

@@ -1,24 +1,30 @@
 import onChange from 'on-change';
-import axios from 'axios';
 
-import { validate } from './utils/utils';
-import { corsApiUrl } from './constants';
+import {
+  removeTrailingSlashes,
+  updateValidationState,
+} from './utils/utils';
+import formRender from './renders/formRender';
 
 export default () => {
   const state = {
     form: {
       process: 'initial',
       url: '',
-      isValid: true,
+      isUrlValid: 'empty',
       errors: [],
     },
-    feeds: [],
-    posts: [],
+    feeds: {
+      items: [],
+    },
+    posts: {
+      items: [],
+    },
     language: 'eng',
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const watchedState = onChange(state, (...opts) => {
+  const watchedForm = onChange(state.form, formRender);
+  const watchedFeeds = onChange(state.feeds, (...opts) => {
     console.log(opts);
   });
 
@@ -27,32 +33,30 @@ export default () => {
 
   const handleInputBlur = (evt) => {
     const { value } = evt.target;
-    state.form.process = 'filling';
-    state.form.url = value;
+    const withoutTralingSlashes = removeTrailingSlashes(value);
 
-    validate(value).then((res) => {
-      input.classList.add('is-valid');
-      state.form.isValid = true;
-    }).catch((error) => {
-      input.classList.add('is-invalid');
-      state.form.errors = [...state.form.errors, error.message];
-      state.form.isValid = false;
-    });
+    updateValidationState(withoutTralingSlashes, state)
+      .then((validUrl) => {
+        watchedForm.isUrlValid = 'valid';
+        watchedForm.url = validUrl;
+      })
+      .catch((error) => {
+        watchedForm.errors = [...watchedForm.errors, error.message];
+        watchedForm.isUrlValid = 'invalid';
+      });
   };
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
+    const { value } = evt.target;
 
-    state.form.process = 'adding';
-    const currentURL = state.form.url;
-    state.feeds = [...state.feeds, { currentURL }];
+    watchedForm.process = 'adding';
+    const currentURL = watchedForm.url;
+    watchedFeeds.items = [...watchedFeeds.items, { url: currentURL }];
 
-    // TODO add API module
-    axios.get(`${corsApiUrl}${currentURL}`).then(console.log);
-    console.log(state);
   };
 
-  input.addEventListener('blur', handleInputBlur);
+  input.addEventListener('input', handleInputBlur);
   form.addEventListener('submit', handleFormSubmit);
 
   // document.querySelector('.reader-add').addEventListener('click', (evt) => {
