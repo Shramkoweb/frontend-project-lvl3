@@ -1,6 +1,8 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
 
+// TODO move to renders folder
+// TODO fix semantic HTML
 const renderPosts = (posts) => {
   const fragment = document.createDocumentFragment();
   posts.forEach((post) => {
@@ -10,7 +12,6 @@ const renderPosts = (posts) => {
     const postTitle = document.createElement('h5');
     postTitle.innerHTML = `<a href="${link}">${title}</a>`;
     postElement.append(postTitle);
-    // TODO remove multiple rerender - appends
     fragment.append(postElement);
   });
 
