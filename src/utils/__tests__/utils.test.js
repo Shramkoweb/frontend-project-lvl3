@@ -3,8 +3,10 @@ import fs from 'fs';
 
 import {
   createElement,
+  removeTrailingSlashes,
   render,
   renderPositions,
+  validate,
 } from '../utils';
 
 const getFixturePath = (filename) => path.join(process.cwd(), '/src', '/__fixtures__', filename);
@@ -75,5 +77,45 @@ describe('render', () => {
     render(container, testElement, renderPositions.BEFOREEND);
 
     expect(container).toMatchSnapshot();
+  });
+});
+
+describe('removeTrailingSlashes', () => {
+  it('should remove traling slashes', () => {
+    const current = removeTrailingSlashes('https://css-tricks.com/feed//');
+    const expected = 'https://css-tricks.com/feed';
+
+    expect(current).toEqual(expected);
+  });
+});
+
+describe('validate', () => {
+  it('should return URL if valid', () => {
+    const url = 'https://css-tricks.com/feed';
+
+    return validate(url)
+      .then((data) => expect(data)
+        .toBe(url));
+  });
+
+  it('should reject with error if invalid URL', () => {
+    const invalidURL = 'https//css-tricks.com/feed';
+    const valid = validate(invalidURL);
+
+    return expect(valid).rejects.toMatchSnapshot();
+  });
+
+  it('should reject with error if empty URL', () => {
+    const invalidURL = '';
+    const valid = validate(invalidURL);
+
+    return expect(valid).rejects.toMatchSnapshot();
+  });
+
+  it('should reject with error if URL already have', () => {
+    const url = 'https://css-tricks.com/feed';
+    const valid = validate(url, [url]);
+
+    return expect(valid).rejects.toMatchSnapshot();
   });
 });

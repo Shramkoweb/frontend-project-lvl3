@@ -78,3 +78,9 @@ exports[`render should render BEFOREEND  1`] = `
 `;
 
 exports[`render should throw error without place 1`] = `"Uncorrected render place undefined"`;
+
+exports[`validate should reject with error if URL already have 1`] = `[ValidationError: hasUrlYet]`;
+
+exports[`validate should reject with error if empty URL 1`] = `[ValidationError: emptyString]`;
+
+exports[`validate should reject with error if invalid URL 1`] = `[ValidationError: invalidUrl]`;
