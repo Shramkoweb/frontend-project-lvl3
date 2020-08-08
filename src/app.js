@@ -37,24 +37,26 @@ export default () => {
       })
       .catch((error) => {
         watchedState.form.isUrlValid = 'invalid';
-        watchedState.form.errors = error.errors;
+        watchedState.form.errors = [error.errors];
       });
   };
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
 
-    const currentURL = watchedState.form.url;
+    const { url } = watchedState.form;
+    const urlWithCors = `${corsApiUrl}${url}`;
+    watchedState.form.process = 'submitting';
 
-    const url = `${corsApiUrl}${currentURL}`;
-
-    axios.get(url)
+    axios.get(urlWithCors)
       .then((response) => {
         const { feed, posts } = parse(response.data);
-        state.feeds = [...state.feeds, { url: currentURL, feed }];
+        state.feeds = [...state.feeds, { url, feed }];
         watchedState.posts = [...state.posts, ...posts];
+        watchedState.form.process = 'finished';
       })
       .catch((err) => {
+        watchedState.form.errors = ['network'];
         throw err;
       });
 

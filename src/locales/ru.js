@@ -9,6 +9,7 @@ export default {
       invalidUrl: 'Введенный URL некорректен',
       hasUrlYet: 'Данный URL уже добавлен',
       emptyString: 'Нужно ввести корректный URL',
+      network: 'Произошла ошибка во время загрузки данных по данному URL',
     },
   },
 };
