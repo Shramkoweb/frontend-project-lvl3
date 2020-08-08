@@ -1,6 +1,39 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
 
+const renderPosts = (posts) => {
+  const fragment = document.createDocumentFragment();
+  posts.forEach((post) => {
+    const { title, link } = post;
+    const postElement = document.createElement('div');
+    postElement.classList.add('mb-2', 'border-bottom');
+    const postTitle = document.createElement('h5');
+    postTitle.innerHTML = `<a href="${link}">${title}</a>`;
+    postElement.append(postTitle);
+    // TODO remove multiple rerender - appends
+    fragment.append(postElement);
+  });
+
+  return fragment;
+};
+
+const renderFeed = (feed, posts) => {
+  const fragment = document.createDocumentFragment();
+  const titleElement = document.createElement('h2');
+  titleElement.textContent = feed.title;
+  const currentFeedPosts = posts.filter((post) => post.feedID === feed.id);
+  fragment.append(titleElement, renderPosts(currentFeedPosts));
+  return fragment;
+};
+
+const renderContent = ({ posts, feeds }) => {
+  const feedsContainer = document.querySelector('.feeds');
+  feedsContainer.innerHTML = '';
+
+  const feedElements = feeds.map((feed) => renderFeed(feed.feed, posts));
+  feedsContainer.append(...feedElements);
+};
+
 export default (state) => {
   const form = document.querySelector('form');
   const input = form.querySelector('input');
@@ -32,6 +65,10 @@ export default (state) => {
         .map((err) => i18next.t(`errorMessages.${err}`))
         .join('. ');
       errorMessage.textContent = errorMessages;
+    }
+
+    if (path === 'posts') {
+      renderContent(state);
     }
 
     return null;

@@ -50,9 +50,9 @@ export default () => {
 
     axios.get(url)
       .then((response) => {
-        state.feeds = [...state.feeds, { url: currentURL }];
         const { feed, posts } = parse(response.data);
-        console.log({ feed, posts });
+        state.feeds = [...state.feeds, { url: currentURL, feed }];
+        watchedState.posts = [...state.posts, ...posts];
       })
       .catch((err) => {
         throw err;
