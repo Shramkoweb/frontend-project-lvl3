@@ -67,7 +67,7 @@ export default (state) => {
         .map((err) => i18next.t(`errorMessages.${err}`))
         .join('. ');
       input.classList.remove('is-valid');
-      input.classList.toggle('is-invalid');
+      input.classList.add('is-invalid');
       errorMessage.textContent = errorMessages;
     }
 
