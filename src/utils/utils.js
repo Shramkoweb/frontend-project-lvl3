@@ -70,7 +70,9 @@ export const checkForNewPosts = (state) => {
         const newPosts = posts.map((post) => ({ ...post, feedID: id }));
         const diffPosts = differenceBy(newPosts, state.posts, 'title');
 
-        state.posts = [...diffPosts, ...state.posts];
+        if (diffPosts.length !== 0) {
+          state.posts = [...diffPosts, ...state.posts];
+        }
       })
       .catch((err) => {
         throw err;

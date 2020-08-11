@@ -26,6 +26,7 @@ export default () => {
 
   const input = document.querySelector('.reader-input');
   const form = document.querySelector('.reader-form');
+  const dropDown = document.querySelector('.dropdown-menu');
 
   const handleInputBlur = (evt) => {
     const { value } = evt.target;
@@ -40,6 +41,10 @@ export default () => {
         watchedState.form.isUrlValid = 'invalid';
         watchedState.form.errors = [error.errors];
       });
+  };
+
+  const handleDropdownClick = (evt) => {
+    watchedState.language = evt.target.id;
   };
 
   const handleFormSubmit = (evt) => {
@@ -65,13 +70,7 @@ export default () => {
   };
 
   checkForNewPosts(watchedState);
-
   input.addEventListener('input', handleInputBlur);
   form.addEventListener('submit', handleFormSubmit);
-
-  // document.querySelector('.reader-add').addEventListener('click', (evt) => {
-  //   evt.preventDefault();
-  //   watchedState.language = 'ru';
-  //   i18next.changeLanguage('eng');
-  // });
+  dropDown.addEventListener('click', handleDropdownClick);
 };

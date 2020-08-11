@@ -1,5 +1,22 @@
 import i18next from 'i18next';
-import languages from './locales';
+import locales from './locales';
+import { languages } from './constants';
+
+export const dropButtonInit = () => {
+  const dropdownToggle = document.querySelector('.dropdown-toggle');
+  const menu = document.querySelector('.dropdown-menu');
+  dropdownToggle.textContent = languages.eng;
+
+  const languageKeys = Object.keys(languages);
+  languageKeys.forEach((lang) => {
+    const dropdownItem = document.createElement('a');
+    dropdownItem.classList.add('dropdown-item');
+    dropdownItem.id = lang;
+    dropdownItem.setAttribute('href', '#');
+    dropdownItem.textContent = languages[lang];
+    menu.append(dropdownItem);
+  });
+};
 
 export const updateContent = () => {
   const title = document.querySelector('.reader-title');
@@ -17,8 +34,8 @@ export const updateContent = () => {
 
 const initLocales = () => {
   i18next.init({
-    lng: 'ru',
-    resources: { ...languages },
+    lng: 'eng',
+    resources: { ...locales },
   }).then(updateContent);
 
   i18next.on('languageChanged', updateContent);
@@ -26,4 +43,5 @@ const initLocales = () => {
 
 export default () => {
   initLocales();
+  dropButtonInit();
 };

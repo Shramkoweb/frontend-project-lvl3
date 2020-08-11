@@ -1,5 +1,6 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
+import { languages } from './constants';
 
 // TODO move to renders folder
 // TODO fix semantic HTML
@@ -81,19 +82,25 @@ export default (state) => {
       switch (process) {
         case 'submitting':
           submitButton.disabled = true;
-          input.disabled = true;
-          errorMessage.classList.add('valid-feedback');
+          input.readOnly = true;
+          errorMessage.classList.add('valid-feedback', 'text-white');
           errorMessage.textContent = 'Please wait ....';
           break;
         case 'finished':
-          errorMessage.classList.remove('valid-feedback');
+          errorMessage.classList.remove('valid-feedback', 'text-white');
           submitButton.disabled = false;
-          input.disabled = false;
+          input.readOnly = false;
           input.value = '';
           break;
         default:
           throw new Error(`Unknown state: ${process}`);
       }
+    }
+
+    if (path === 'language') {
+      const dropdownToggle = document.querySelector('.dropdown-toggle');
+      i18next.changeLanguage(value);
+      dropdownToggle.textContent = languages[value];
     }
 
     return null;
