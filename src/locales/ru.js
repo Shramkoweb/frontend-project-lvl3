@@ -4,7 +4,7 @@ export default {
     lead: 'Начни читать RSS сегодня! Это легко и весело.',
     feedButton: 'Добавить',
     inputPlaceholder: 'RSS ссылка',
-    exampleText: 'Пример',
+    exampleText: 'Пример: https://ru.hexlet.io/lessons.rss',
     errorMessages: {
       invalidUrl: 'Введенный URL некорректен',
       hasUrlYet: 'Данный URL уже добавлен',

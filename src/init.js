@@ -6,11 +6,13 @@ export const updateContent = () => {
   const leed = document.querySelector('.reader-leed');
   const addButton = document.querySelector('.reader-add');
   const input = document.querySelector('.reader-input');
+  const example = document.querySelector('.reader-example');
 
   title.textContent = i18next.t('pageTitle');
   leed.textContent = i18next.t('lead');
   addButton.textContent = i18next.t('feedButton');
   input.setAttribute('placeholder', i18next.t('inputPlaceholder'));
+  example.textContent = i18next.t('exampleText');
 };
 
 const initLocales = () => {
