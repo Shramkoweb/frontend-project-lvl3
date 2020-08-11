@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 import {
-  parse,
   removeTrailingSlashes,
   updateValidationState,
 } from './utils/utils';
 import watchers from './watchers';
 import { corsApiUrl } from './constants';
+import parseRSS from './parser';
 
 export default () => {
   const state = {
@@ -50,7 +50,7 @@ export default () => {
 
     axios.get(urlWithCors)
       .then((response) => {
-        const { feed, posts } = parse(response.data);
+        const { feed, posts } = parseRSS(response.data);
         state.feeds = [...state.feeds, { url, feed }];
         watchedState.posts = [...state.posts, ...posts];
         watchedState.form.process = 'finished';
