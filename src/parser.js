@@ -2,9 +2,9 @@ import uniqueId from 'lodash/uniqueId';
 
 export default (xml) => {
   const parser = new DOMParser();
-  const dom = parser.parseFromString(xml, 'text/xml');
+  const document = parser.parseFromString(xml, 'text/xml');
   const id = uniqueId();
-  const channel = dom.querySelector('channel');
+  const channel = document.querySelector('channel');
   const feed = {
     id,
     title: channel.querySelector('title').textContent,

@@ -56,6 +56,7 @@ export default () => {
         watchedState.form.process = 'finished';
       })
       .catch((err) => {
+        watchedState.form.process = 'finished';
         watchedState.form.errors = ['network'];
         throw err;
       });

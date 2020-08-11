@@ -68,6 +68,7 @@ export default (state) => {
         .join('. ');
       input.classList.remove('is-valid');
       input.classList.add('is-invalid');
+      input.disabled = false;
       errorMessage.textContent = errorMessages;
     }
 
@@ -80,9 +81,14 @@ export default (state) => {
       switch (process) {
         case 'submitting':
           submitButton.disabled = true;
+          input.disabled = true;
+          errorMessage.classList.add('valid-feedback');
+          errorMessage.textContent = 'Please wait ....';
           break;
         case 'finished':
+          errorMessage.classList.remove('valid-feedback');
           submitButton.disabled = false;
+          input.disabled = false;
           input.value = '';
           break;
         default:
