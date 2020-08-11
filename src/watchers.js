@@ -33,7 +33,7 @@ const renderContent = ({ posts, feeds }) => {
   const feedsContainer = document.querySelector('.feeds');
   feedsContainer.innerHTML = '';
 
-  const feedElements = feeds.map((feed) => renderFeed(feed.feed, posts));
+  const feedElements = feeds.map((feed) => renderFeed(feed, posts));
   feedsContainer.append(...feedElements);
 };
 

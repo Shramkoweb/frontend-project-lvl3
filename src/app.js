@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import {
+  checkForNewPosts,
   removeTrailingSlashes,
   updateValidationState,
 } from './utils/utils';
@@ -51,18 +52,19 @@ export default () => {
     axios.get(urlWithCors)
       .then((response) => {
         const { feed, posts } = parseRSS(response.data);
-        state.feeds = [...state.feeds, { url, feed }];
+        state.feeds = [...state.feeds, { url, ...feed }];
         watchedState.posts = [...state.posts, ...posts];
         watchedState.form.process = 'finished';
+        console.log(state);
       })
       .catch((err) => {
         watchedState.form.process = 'finished';
         watchedState.form.errors = ['network'];
         throw err;
       });
-
-    console.log(state);
   };
+
+  checkForNewPosts(watchedState);
 
   input.addEventListener('input', handleInputBlur);
   form.addEventListener('submit', handleFormSubmit);

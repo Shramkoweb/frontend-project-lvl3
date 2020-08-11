@@ -1,4 +1,12 @@
 import * as yup from 'yup';
+import axios from 'axios';
+import differenceBy from 'lodash/differenceBy';
+
+import {
+  corsApiUrl,
+  UPDATE_POSTS_TIMEOUT,
+} from '../constants';
+import parseRSS from '../parser';
 
 export const renderPositions = {
   AFTERBEGIN: 'afterbegin',
@@ -42,4 +50,30 @@ export const updateValidationState = (value, state) => {
   const addedURLs = state.feeds.map((feed) => feed.url);
 
   return validate(value, addedURLs);
+};
+
+export const checkForNewPosts = (state) => {
+  setTimeout(checkForNewPosts, UPDATE_POSTS_TIMEOUT, state);
+  const { feeds } = state;
+  const urls = feeds.map((feed) => feed.url);
+  urls.forEach((url) => {
+    const corsUrl = `${corsApiUrl}${url}`;
+
+    axios.get(corsUrl)
+      .then((response) => {
+        const { feed, posts } = parseRSS(response.data);
+        const { title } = feed;
+
+        const currentFeed = feeds.find((item) => item.title === title);
+        const { id } = currentFeed;
+
+        const newPosts = posts.map((post) => ({ ...post, feedID: id }));
+        const diffPosts = differenceBy(newPosts, state.posts, 'title');
+
+        state.posts = [...diffPosts, ...state.posts];
+      })
+      .catch((err) => {
+        throw err;
+      });
+  });
 };
