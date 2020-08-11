@@ -15,3 +15,20 @@ RSS-лента новостей с автоматическим обновлен
 - События, манипуляции с DOM
 - Валидация, DOMParser
 - Деплой (https://vercel.com)
+
+## Разработка 
+
+node 13+
+
+- make install
+- make start
+
+Запуск тестов и проверка покрытия
+
+- make test
+- make test-coverage
+
+Сборка продакшн билда
+
+- make build
+
