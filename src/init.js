@@ -24,12 +24,14 @@ export const updateContent = () => {
   const addButton = document.querySelector('.reader-add');
   const input = document.querySelector('.reader-input');
   const example = document.querySelector('.reader-example');
+  const copyright = document.querySelector('.copyright');
 
   title.textContent = i18next.t('pageTitle');
   leed.textContent = i18next.t('lead');
   addButton.textContent = i18next.t('feedButton');
   input.setAttribute('placeholder', i18next.t('inputPlaceholder'));
   example.textContent = i18next.t('exampleText');
+  copyright.textContent = i18next.t('copyright');
 };
 
 const initLocales = () => {

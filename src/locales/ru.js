@@ -5,6 +5,7 @@ export default {
     feedButton: 'Добавить',
     inputPlaceholder: 'RSS ссылка',
     exampleText: 'Пример: https://ru.hexlet.io/lessons.rss',
+    copyright: 'Сделано этим парнем',
     errorMessages: {
       invalidUrl: 'Введенный URL некорректен',
       hasUrlYet: 'Данный URL уже добавлен',
