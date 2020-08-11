@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import uniqueId from 'lodash/uniqueId';
 
 export const renderPositions = {
   AFTERBEGIN: 'afterbegin',
