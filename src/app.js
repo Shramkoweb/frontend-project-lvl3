@@ -6,7 +6,6 @@ import {
   updateValidationState,
 } from './utils/utils';
 import watchers from './watchers';
-import { corsApiUrl } from './constants';
 import parseRSS from './parser';
 
 export default () => {
@@ -51,7 +50,7 @@ export default () => {
     evt.preventDefault();
 
     const { url } = watchedState.form;
-    const urlWithCors = `${corsApiUrl}${url}`;
+    const urlWithCors = `${url}`;
     watchedState.form.process = 'submitting';
 
     axios.get(urlWithCors)
