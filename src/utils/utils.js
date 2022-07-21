@@ -3,7 +3,6 @@ import axios from 'axios';
 import differenceBy from 'lodash/differenceBy';
 
 import {
-  corsApiUrl,
   UPDATE_POSTS_TIMEOUT,
 } from '../constants';
 import parseRSS from '../parser';
@@ -57,9 +56,7 @@ export const checkForNewPosts = (state) => {
   const { feeds } = state;
   const urls = feeds.map((feed) => feed.url);
   urls.forEach((url) => {
-    const corsUrl = `${corsApiUrl}${url}`;
-
-    axios.get(corsUrl)
+    axios.get(url)
       .then((response) => {
         const { feed, posts } = parseRSS(response.data);
         const { title } = feed;

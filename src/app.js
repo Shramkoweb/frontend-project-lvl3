@@ -50,10 +50,9 @@ export default () => {
     evt.preventDefault();
 
     const { url } = watchedState.form;
-    const urlWithCors = `${url}`;
     watchedState.form.process = 'submitting';
 
-    axios.get(urlWithCors)
+    axios.get(url)
       .then((response) => {
         const { feed, posts } = parseRSS(response.data);
         state.feeds = [...state.feeds, { url, ...feed }];
